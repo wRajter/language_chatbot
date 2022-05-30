@@ -45,8 +45,7 @@ def remove_stop_words(X):
 def lemmatizing(text):
     '''Function that returns a panda series of STRINGS of lemmatized words'''
     lemmatizer = WordNetLemmatizer()
-    lem = [lemmatizer.lemmatize(word) for word in text]
-    new_text = ' '.join(lem)
+    new_text = [lemmatizer.lemmatize(word) for word in text]
     return new_text
 
 def get_preproc_features(X):
