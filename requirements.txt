@@ -28,4 +28,6 @@ joblib
 memoized-property
 termcolor
 
+# text preprocessing
+nltk
 jupyter
