@@ -30,3 +30,4 @@ termcolor
 
 # text preprocessing
 nltk
+jupyter
