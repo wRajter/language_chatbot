@@ -18,6 +18,7 @@ import string
 data = getting_yaml_data()
 #data = pd.read_csv('language_chatbot/data/conver_df.csv')   #Alternative way of loading the data from the data (ABSSOLUTE PATH)
 X = data['patterns']
+y = data['tag']
 
 def lower(X):
     '''Function that returns panda series of lower case strings'''
@@ -59,6 +60,9 @@ def get_preproc_features(X):
         X[index] = lemmatizing(value)
 
     return X
+
+def get_preproc_target(y):
+    pass
 
 if __name__ == '__main__':
     output = get_preproc_features(X)
