@@ -38,3 +38,6 @@ jupyter
 # word2vec
 gensim
 tensorflow
+
+# python dot environment
+python-dotenv
