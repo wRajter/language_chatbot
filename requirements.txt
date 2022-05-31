@@ -32,3 +32,7 @@ termcolor
 # text preprocessing
 nltk
 jupyter
+
+# word2vec
+gensim
+tensorflow
