@@ -34,3 +34,7 @@ def getting_yaml_data(path_to_input_file='../raw_data/small conversational bot')
 
     # creating a pandas dataframe form the dictionary
     return pd.DataFrame.from_dict(data_dic)
+
+if __name__ == '__main__':
+    output = getting_yaml_data()
+    print(output)
