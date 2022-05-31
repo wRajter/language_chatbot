@@ -1,7 +1,7 @@
 from data import getting_yaml_data
 
 import string
-#import pandas as pd
+import pandas as pd
 
 import nltk
 
@@ -15,10 +15,12 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 import string
 
+
 data = getting_yaml_data()
 #data = pd.read_csv('language_chatbot/data/conver_df.csv')   #Alternative way of loading the data from the data (ABSSOLUTE PATH)
 X = data['patterns']
-y = data['tag']
+y = data[['tag']]
+columns = data['tag'].unique()
 
 def lower(X):
     '''Function that returns panda series of lower case strings'''
@@ -61,9 +63,10 @@ def get_preproc_features(X):
 
     return X
 
-def get_preproc_target(y):
-    pass
+def get_preproc_target(df = data):
+    return pd.get_dummies(df.tag)
+
 
 if __name__ == '__main__':
-    output = get_preproc_features(X)
+    output = get_preproc_target()
     print(output)
