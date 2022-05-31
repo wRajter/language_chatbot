@@ -10,6 +10,7 @@ pandas
 scikit-learn
 tensorflow
 transformers
+yaml
 
 # tests/linter
 black
@@ -33,3 +34,7 @@ termcolor
 # text preprocessing
 nltk
 jupyter
+
+# word2vec
+gensim
+tensorflow
