@@ -9,8 +9,8 @@ tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
 
 
-def chat():
-    new_user_input = ''
+def chat(new_user_input=''):
+
 
     while new_user_input != 'quit':
         # user input in whatever language
