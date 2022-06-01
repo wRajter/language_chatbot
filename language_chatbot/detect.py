@@ -21,9 +21,9 @@ def detect_language(sentence):
                  'uk' : 'Ukrainian', 'ur' : 'Urdu', 'vi' : 'Vietnamese', 'zh-cn' : 'Chinese', 'zh-tw' :'Taiwanese Mandarin'
     }
 
-    lang = detect(sentence)
+    lang = detect(sentence.capitalize())
 
     return lang
 
 if __name__ == '__main__':
-    print(detect_language('como vai'))
+    print(detect_language('wie geht es dir?'))

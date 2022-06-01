@@ -9,12 +9,12 @@ tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
 
 
-def chat(new_user_input=''):
+def chat(new_user_input):
 
 
-    while new_user_input != 'quit':
+    if new_user_input != 'quit':
         # user input in whatever language
-        new_user_input = input('>> User:')
+        #new_user_input = input('>> User:')
         language_detect = detect_language(new_user_input)
 
         # user's input and response are traslated to English
@@ -35,7 +35,7 @@ def chat(new_user_input=''):
         #TODO: translate the answer from English to desired language
         translated_output = translate(bot_decoded_ans, language_detect)
 
-        print(f'DialoGPT: {translated_output}')
+        return f'DialoGPT: {translated_output}'
 
 
 if __name__ == '__main__':
