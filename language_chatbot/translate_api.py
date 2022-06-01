@@ -15,7 +15,7 @@ text = 'hello, world'
 tar_language = 'DE'
 
 
-def translate(text, tar_language, url):
+def translate(text, tar_language, url='https://api-free.deepl.com/v2/translate'):
     """
     Translates to the chosen language
     Please provide the following as input:
