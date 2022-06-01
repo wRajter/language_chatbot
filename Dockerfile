@@ -1,6 +1,5 @@
 FROM python:3.8.13-buster
 
-COPY api /api
 COPY language_chatbot /language_chatbot
 COPY requirements.txt /requirements.txt
 

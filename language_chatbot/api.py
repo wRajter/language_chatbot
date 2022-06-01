@@ -22,4 +22,4 @@ def index():
 
 def reply(text):
 
-    return chat(text)
+    return {'response' : chat(text)}
