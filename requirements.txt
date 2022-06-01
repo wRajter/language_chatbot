@@ -8,9 +8,9 @@ wheel>=0.29
 numpy
 pandas
 scikit-learn
-tensorflow
+#tensorflow
 transformers
-yaml
+#yaml
 
 # tests/linter
 black
@@ -32,12 +32,14 @@ memoized-property
 termcolor
 
 # text preprocessing
-nltk
+#nltk
 jupyter
 
 # word2vec
-gensim
-tensorflow
+#gensim
 
 # python dot environment
 python-dotenv
+
+# dialo-gpt
+torch
