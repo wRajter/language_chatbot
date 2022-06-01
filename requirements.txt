@@ -44,3 +44,8 @@ python-dotenv
 # dialo-gpt
 torch
 langdetect
+
+#API
+fastapi
+uvicorn
+streamlit
