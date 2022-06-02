@@ -1,0 +1,15 @@
+artifact_uri: file:///home/lubo/code/wRajter/language_chatbot/language_chatbot/mlruns/0/78797bb206e642bcafce573cf23987ce/artifacts
+end_time: 1654180726924
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+name: ''
+run_id: 78797bb206e642bcafce573cf23987ce
+run_uuid: 78797bb206e642bcafce573cf23987ce
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1654180726848
+status: 3
+tags: []
+user_id: lubo
