@@ -49,3 +49,4 @@ langdetect
 fastapi
 uvicorn
 streamlit
+streamlit_chat
