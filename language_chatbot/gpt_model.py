@@ -16,6 +16,8 @@ def chat(new_user_input):
         # user input in whatever language
         #new_user_input = input('>> User:')
         language_detect = detect_language(new_user_input)
+        if len(language_detect) > 8:
+            return language_detect
 
         # user's input and response are traslated to English
         translated_input = translate(new_user_input, 'EN')

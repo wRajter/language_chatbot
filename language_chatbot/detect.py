@@ -21,7 +21,14 @@ def detect_language(sentence):
                  'uk' : 'Ukrainian', 'ur' : 'Urdu', 'vi' : 'Vietnamese', 'zh-cn' : 'Chinese', 'zh-tw' :'Taiwanese Mandarin'
     }
 
+    target_languages = ['bg', 'cs', 'da', 'de', 'el', 'en', 'es', 'et',
+                        'fi', 'fr', 'hu', 'id', 'it', 'ja', 'lt', 'lv', 'nl',
+                        'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'tr', 'sv', 'zh']
+
     lang = detect(sentence.capitalize())
+
+    if lang not in target_languages:
+        return f"I'm sorry, I don't speak {languages[lang]}. Please try a different language."
 
     return lang
 
