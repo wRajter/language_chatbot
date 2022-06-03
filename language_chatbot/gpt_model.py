@@ -9,14 +9,14 @@ tokenizer = AutoTokenizer.from_pretrained("microsoft/DialoGPT-medium")
 model = AutoModelForCausalLM.from_pretrained("microsoft/DialoGPT-medium")
 
 
-def chat(new_user_input, user_language=0):
+def chat(new_user_input, user_language):
 
     #Checking if user specified a language
-    if  user_language:
-        language_detect = user_language
+    if  user_language == 'no lang':
+        language_detect = detect_language(new_user_input)
 
     else:
-        language_detect = detect_language(new_user_input)
+        language_detect = user_language
 
     if len(language_detect) > 8:
         return language_detect

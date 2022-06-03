@@ -20,6 +20,6 @@ def index():
 
 @app.get("/reply")
 
-def reply(text, lang_select=0):
+def reply(text, user_language):
 
-    return {'response' : chat(text, lang_select)}
+    return {'response' : chat(text, user_language)}
