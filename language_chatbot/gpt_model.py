@@ -44,4 +44,4 @@ def chat(new_user_input, user_language=0):
 
 if __name__ == '__main__':
     print('>>>>>>type quit to quit the program<<<<<<<')
-    chat()
+    print(chat("why do I need to do my homework?", "de"))
