@@ -21,18 +21,24 @@ with st.container():
     st.subheader("I am here to help you learn a language of your choice :speech_balloon:")
     st.write("---")
 
-key_pairs = {'No specific language': 0, 'English': 'en', 'German' : 'de', 'Spanish' : 'es', 'French' : 'fr', 'Italian' : 'it', 'Dutch' : 'nl', 'Polish' : 'pl', 'Portuguese' : 'pt', 'Slovak' : 'sk',
-             'Hungarian' : 'hu'}
 
-lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
-
-lang_select = key_pairs[lang_choice]
 
 st.subheader(":warning: If you want to change the language please reload the page :warning:")
 
-def generate_answer(url = "https://chatbot-ni4mcaftla-ew.a.run.app/reply", lang_select = lang_select):
+lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
+
+def generate_answer(url = "http://127.0.0.1:8000/reply"):
+
+    key_pairs = {'No specific language': 0, 'English': 'en', 'German' : 'de', 'Spanish' : 'es', 'French' : 'fr', 'Italian' : 'it', 'Dutch' : 'nl', 'Polish' : 'pl', 'Portuguese' : 'pt', 'Slovak' : 'sk',
+             'Hungarian' : 'hu'}
+    #lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
+    #lang_choice = st.text_input("Choose a language")
+    lang_select = key_pairs[lang_choice]
+
     user_message = st.session_state.input_text
-    params = {'text': user_message, "lang": lang_select}
+
+    params = {'text': user_message, "lang_select": lang_select}
+
     response = requests.get(url, params=params)
     answer = response.json()
 
