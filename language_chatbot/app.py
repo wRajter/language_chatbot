@@ -65,8 +65,8 @@ def generate_answer(url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"):
         answer = response.json()
 
 
-    response = requests.get(url, params=params)
-    answer = response.json()
+        response = requests.get(url, params=params)
+        answer = response.json()
 
 
         st.session_state.history.append({"message": user_message, "is_user": True})
