@@ -25,9 +25,11 @@ st.subheader(":warning: If you want to change the language please reload the pag
 
 lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
 
+
 st.write("---")
 
 eng_trans = st.checkbox("Would you like an optional English translation")
+
 
 def generate_answer(url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"):
 
@@ -61,6 +63,10 @@ def generate_answer(url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"):
 
         response = requests.get(url, params=params)
         answer = response.json()
+
+
+    response = requests.get(url, params=params)
+    answer = response.json()
 
 
         st.session_state.history.append({"message": user_message, "is_user": True})
