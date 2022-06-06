@@ -3,7 +3,8 @@ from streamlit_chat import message as st_message
 
 import requests
 
-url = "https://chatbot-ni4mcaftla-ew.a.run.app/reply"
+url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"
+
 
 st.set_page_config(page_title="Multilingual Chatbot", page_icon=":computer:", layout="wide")
 
@@ -27,7 +28,11 @@ st.subheader(":warning: If you want to change the language please reload the pag
 
 lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
 
-def generate_answer(url = "http://127.0.0.1:8000/reply"):
+st.write("---")
+
+eng_trans = st.checkbox("Would you like an optional English translation")
+
+def generate_answer(url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"):
 
     key_pairs = {'No specific language': 'no lang', 'English': 'en', 'German' : 'de', 'Spanish' : 'es', 'French' : 'fr', 'Italian' : 'it', 'Dutch' : 'nl', 'Polish' : 'pl', 'Portuguese' : 'pt', 'Slovak' : 'sk',
              'Hungarian' : 'hu'}
@@ -37,14 +42,18 @@ def generate_answer(url = "http://127.0.0.1:8000/reply"):
 
     user_message = st.session_state.input_text
 
-    params = {'text': user_message, "user_language": lang_select}
+    if eng_trans == True:
+        eng_response = requests.get(url, {"text": user_message, "user_language": "en"})
+        eng_answer = eng_response.json()
+
+    params = {"text": user_message, "user_language": lang_select}
 
     response = requests.get(url, params=params)
-    print(response)
     answer = response.json()
 
     st.session_state.history.append({"message": user_message, "is_user": True})
     st.session_state.history.append({"message": answer['response'], "is_user": False})
+    st.session_state.history.append({"message": eng_answer['response'], "is_user": False})
 
 st.text_input("Talk to the bot", key="input_text", on_change=generate_answer)
 
