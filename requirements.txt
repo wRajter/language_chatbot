@@ -50,3 +50,6 @@ fastapi
 uvicorn
 streamlit
 streamlit_chat
+
+# fine tuning
+# datasets
