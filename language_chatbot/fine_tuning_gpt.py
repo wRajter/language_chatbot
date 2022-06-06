@@ -60,6 +60,9 @@ tf_val_dataset = tf.data.Dataset.from_tensor_slices((
 ))
 
 
+checkpoint = tf.train.Checkpoint(step=tf.Variable(1))
+
+
 # import trainer
 training_arguments = TFTrainingArguments(output_dir='test_trainer',
                                        num_train_epochs=2,
@@ -85,17 +88,17 @@ trainer.train()
 
 
 # Compile and fit
-model.compile(
-    optimizer=tf.keras.optimizers.Adam(learning_rate=5e-5),
-    loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-    metrics=tf.metrics.SparseCategoricalAccuracy(),
-)
+# model.compile(
+#     optimizer=tf.keras.optimizers.Adam(learning_rate=5e-5),
+#     loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+#     metrics=tf.metrics.SparseCategoricalAccuracy(),
+# )
 
-model_fitting = model.fit(tf_train_dataset, validation_data=tf_val_dataset, epochs=3)
+# model_fitting = model.fit(tf_train_dataset, validation_data=tf_val_dataset, epochs=3)
 
-eval_ = model_fitting.eval()
+# eval_ = model_fitting.eval()
 
 
 
 if __name__ == '__main__':
-    print(eval_)
+    print('done')
