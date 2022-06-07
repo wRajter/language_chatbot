@@ -37,9 +37,9 @@ def chat(new_user_input, user_language):
         bot_decoded_ans = format(tokenizer.decode(chat_history_ids[:, bot_input_ids.shape[-1]:][0], skip_special_tokens=True))
 
         #TODO: translate the answer from English to desired language
-        translated_output = translate(bot_decoded_ans, language_detect)
+        #translated_output = translate(bot_decoded_ans, language_detect)
 
-        return translated_output
+        return bot_decoded_ans
 
 
 if __name__ == '__main__':

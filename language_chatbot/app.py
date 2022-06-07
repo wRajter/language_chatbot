@@ -1,7 +1,10 @@
+from os import remove
 import streamlit as st
 from streamlit_chat import message as st_message
-
+from language_chatbot.translate_api import translate
+from language_chatbot.detect import detect_language
 import requests
+
 
 #url = "https://chatbot-ni4mcaftla-ew.a.run.app/reply"
 
@@ -30,49 +33,66 @@ st.write("---")
 
 eng_trans = st.checkbox("Would you like an optional English translation")
 
+key_pairs = {'No specific language': 'no lang', 'English': 'en', 'German' : 'de', 'Spanish' : 'es', 'French' : 'fr', 'Italian' : 'it', 'Dutch' : 'nl', 'Polish' : 'pl', 'Portuguese' : 'pt', 'Slovak' : 'sk',
+            'Hungarian' : 'hu'}
 
-def generate_answer(url = "https://chatbot2-ni4mcaftla-ew.a.run.app/reply"):
+lang_select = key_pairs[lang_choice]
 
-    key_pairs = {'No specific language': 'no lang', 'English': 'en', 'German' : 'de', 'Spanish' : 'es', 'French' : 'fr', 'Italian' : 'it', 'Dutch' : 'nl', 'Polish' : 'pl', 'Portuguese' : 'pt', 'Slovak' : 'sk',
-             'Hungarian' : 'hu'}
-    #lang_choice = st.selectbox("What language would you like to choose?", options=['No specific language', 'English', 'German', 'Spanish', 'French', 'Italian', 'Dutch', 'Polish', 'Portuguese', 'Slovak'])
-    #lang_choice = st.text_input("Choose a language")
-    lang_select = key_pairs[lang_choice]
+
+def generate_answer(url = "http://127.0.0.1:8000/reply"):
 
     user_message = st.session_state.input_text
 
-    if eng_trans == True:
-        eng_response = requests.get(url, {"text": user_message, "user_language": "en"})
-        eng_answer = eng_response.json()
-        eng_response = "(" + eng_answer['response'] + ")"
-
-        params = {'text': user_message, "user_language": lang_select}
-
-        response = requests.get(url, params=params)
-        answer = response.json()
-
-        output = f'''
-        {answer['response']}
-        {eng_response}
-        '''
-
-        st.session_state.history.append({"message": user_message, "is_user": True})
-        st.session_state.history.append({"message": output, "is_user": False})
+    if  lang_select == 'no lang':
+        language_detect = detect_language(user_message)
     else:
-        params = {'text': user_message, "user_language": lang_select}
+        language_detect = lang_select
 
-        response = requests.get(url, params=params)
-        answer = response.json()
-
-
-        response = requests.get(url, params=params)
-        answer = response.json()
+    if len(language_detect) > 8:
+        return language_detect
 
 
-        st.session_state.history.append({"message": user_message, "is_user": True})
-        st.session_state.history.append({"message": answer['response'], "is_user": False})
+    params = {'text': user_message, "user_language": language_detect}
+
+    response = requests.get(url, params=params)
+    answer = response.json()
+
+    session_num = len(st.session_state.history)
+
+    conv = ''
+    st.session_state.history.append({"message": user_message, "is_user": True, 'key': f'u_{session_num}'})
+    st.session_state.history.append({"message": answer['response'], "is_user": False, 'key': f'b_{session_num}'})
+    conv = conv + f'{translate(user_message, "en")} # '
+    conv = conv + f'{answer["response"]}#'
+
+    print(conv)
+
+    hist_translated = translate(conv, language_detect).split('#')
+
+    if '' in hist_translated:
+        hist_translated.remove('')
+    print(hist_translated)
+
+    bot_answer_tr = hist_translated[-1]
+    if bot_answer_tr.startswith(' '):
+        bot_answer_tr = bot_answer_tr[1:]
+
+    del st.session_state.history[-1]
+
+    if eng_trans == True:
+        if lang_select != "en":
+            output = f'''
+            {bot_answer_tr}
+            ({answer['response']})
+            '''
+
+            st.session_state.history.append({"message": output, "is_user": False, 'key': f'b_{session_num}'})
+
+    else:
+        st.session_state.history.append({"message": bot_answer_tr, "is_user": False, 'key': f'b_{session_num}'})
 
 st.text_input("Talk to the bot", key="input_text", on_change=generate_answer)
 
+print(st.session_state.history)
 for chat in reversed(st.session_state.history):
     st_message(**chat)
