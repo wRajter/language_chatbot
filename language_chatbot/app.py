@@ -38,7 +38,6 @@ key_pairs = {'No specific language': 'no lang', 'English': 'en', 'German' : 'de'
 
 lang_select = key_pairs[lang_choice]
 
-
 def generate_answer(url = "http://127.0.0.1:8000/reply"):
 
     user_message = st.session_state.input_text
@@ -58,24 +57,29 @@ def generate_answer(url = "http://127.0.0.1:8000/reply"):
     answer = response.json()
 
     session_num = len(st.session_state.history)
+    conv = []
 
-    conv = ''
     st.session_state.history.append({"message": user_message, "is_user": True, 'key': f'u_{session_num}'})
     st.session_state.history.append({"message": answer['response'], "is_user": False, 'key': f'b_{session_num}'})
-    conv = conv + f'{translate(user_message, "en")} # '
-    conv = conv + f'{answer["response"]}#'
-
+    conv.append(translate(user_message, "en"))
+    conv.append(answer["response"])
+    #conv = conv + f'{translate(user_message, "en")} # '
+    #conv = conv + f'{answer["response"]}'
+    conv = " ... ".join(conv)
     print(conv)
 
-    hist_translated = translate(conv, language_detect).split('#')
+    hist_translated = translate(conv, language_detect).split(' ... ')
+    for el in hist_translated:
+        if el.startswith(' '):
+            el = el[1:]
 
     if '' in hist_translated:
         hist_translated.remove('')
     print(hist_translated)
 
     bot_answer_tr = hist_translated[-1]
-    if bot_answer_tr.startswith(' '):
-        bot_answer_tr = bot_answer_tr[1:]
+    #if bot_answer_tr.startswith(' '):
+    #    bot_answer_tr = bot_answer_tr[1:]
 
     del st.session_state.history[-1]
 
